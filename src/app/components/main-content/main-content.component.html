@@ -1,0 +1,55 @@
+<div class="container">
+    <!-- Handle the form input -->
+    <div class="row justify-content-center mt-5">
+        <div class="col-md-6">
+            <div class="card-shadow">
+                <div class="card-body p-5">
+                    <form class="d-flex gap-2 align-items-end">
+                        <div class="flex-grow-1">
+                            <label for="taskname" class="form-label">Task</label>
+                            <input 
+                                type="text" 
+                                class="form-control"
+                                id="taskName"
+                                placeholder="Enter your task"
+                                required
+                                name="taskName"
+                                [(ngModel)]="task.name"
+                                #taskInput="ngModel"
+                            >
+                        </div>
+                        @if (taskInput.invalid) {
+                            <button type="button" class="btn btn-info disabled">Add your Task</button>
+                        } @else {
+                            <button type="button" class="btn btn-info" (click)="addTask()">Add your Task</button>
+                        }
+                    </form>
+                </div>
+            </div>
+        </div>  
+    </div> 
+
+    <!-- Print all tasks here -->
+     @for (task of tasks; track task.complete) {
+            <!-- Strike thorugh text if it's complete -->
+
+            <div class="card mb-2">
+                @if (task.complete) {
+                    <div class="card-body text-decoration-line-through">
+                        {{task.name}}
+                    </div>
+                }
+                @else {
+                    <div class="card-body">
+                    {{task.name}}
+                    </div>
+                }
+            </div>
+        
+
+            <div class="form-check form-switch mb-4">
+                <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" (click)="toggleCompleteStatus(task)" >
+                <label class="form-check-label" for="flexSwitchCheckDefault">Task Complete?</label>
+              </div>
+     }
+</div>
